@@ -15,8 +15,12 @@ export function isAuthenticated(request: Request, response: Response, next: Next
     try {
         //validate Token
         const { sub } = verify(token, process.env.JWT_SECRET as string) as Payload;
+
         //getting userID
         request.user_id = sub;
+        console.log("SUB: ", sub); //bringing only userID info!
+
+
         return next();
     } catch (error) {
         return response.status(401).end();
